@@ -1,0 +1,28 @@
+# Kunci API & Rahsia
+.env
+
+# Persekitaran Maya Python
+.venv/
+venv/
+ENV/
+
+# Fail Pangkalan Data Tempatan
+*.db
+*.sqlite
+*.sqlite3
+
+# Folder Media Yang Dijana
+generated_media/
+media/
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+
+# Editor & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

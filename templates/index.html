@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejen AI Pintar | Teks & Suara Ringkas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="bot-avatar">🤖</div>
+                <div class="bot-info">
+                    <h1>Ejen AI Suara & Teks</h1>
+                    <span class="status-badge"><span class="pulse-dot"></span> Sedia Berbual (Gemini AI)</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <label class="toggle-control" title="Mainkan suara secara automatik selepas AI menjawab">
+                    <input type="checkbox" id="autoVoiceToggle" checked>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label">🔊 Auto Suara</span>
+                </label>
+                <button id="clearChatBtn" class="btn-clear" title="Kosongkan perbualan">
+                    🗑️ <span class="clear-text">Kosongkan</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Chat Area -->
+        <main class="chat-container" id="chatContainer">
+            <!-- Welcome Message -->
+            <div class="message ai-message">
+                <div class="msg-avatar">🤖</div>
+                <div class="msg-content">
+                    <div class="msg-bubble">
+                        <p>👋 <strong>Hai! Saya Ejen AI Suara peribadi anda.</strong></p>
+                        <p>Taip apa sahaja soalan atau topik di bawah. Saya akan menjawab secara <strong>ringkas, padat, dan bertutur terus menggunakan suara</strong>! ✨</p>
+                    </div>
+                    <span class="msg-time">Baru tadi</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Quick Prompts -->
+        <div class="quick-prompts-bar">
+            <button class="prompt-chip" data-text="Pukul berapa sekarang di Malaysia?">⏰ Pukul berapa sekarang?</button>
+            <button class="prompt-chip" data-text="Beri saya satu fakta sains menarik yang ringkas.">💡 Fakta menarik</button>
+            <button class="prompt-chip" data-text="Beri satu kata-kata motivasi ringkas untuk hari ini.">✨ Motivasi hari ini</button>
+            <button class="prompt-chip" data-text="Apakah 3 tips penting untuk kekal produktif?">🎯 Tips produktiviti</button>
+        </div>
+
+        <!-- Input Bar -->
+        <footer class="app-footer">
+            <form id="chatForm" class="input-form">
+                <input 
+                    type="text" 
+                    id="messageInput" 
+                    placeholder="Taip mesej anda di sini... (contoh: Apa khabar?)" 
+                    autocomplete="off" 
+                    required
+                />
+                <button type="submit" id="sendBtn" class="btn-send" title="Hantar Mesej">
+                    <span class="send-icon">➤</span>
+                </button>
+            </form>
+        </footer>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
