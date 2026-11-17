@@ -402,11 +402,55 @@ async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE) -> N
 # Fungsi Permulaan Aplikasi (App Initializer)
 # =====================================================================
 
+async def start_health_check_server(port: int) -> None:
+    """
+    Pelayan HTTP ringkas berasaskan asyncio standard untuk melepasi pemeriksaan
+    kesihatan (health check) platform awan seperti Render atau Railway secara percuma.
+    """
+    async def handle_request(reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
+        try:
+            await reader.read(512)
+            response = (
+                "HTTP/1.1 200 OK\r\n"
+                "Content-Type: text/plain; charset=utf-8\r\n"
+                "Content-Length: 26\r\n"
+                "Connection: close\r\n\r\n"
+                "Telegram AI Bot is running!"
+            )
+            writer.write(response.encode("utf-8"))
+            await writer.drain()
+        except Exception:
+            pass
+        finally:
+            writer.close()
+            try:
+                await writer.wait_closed()
+            except Exception:
+                pass
+
+    try:
+        server = await asyncio.start_server(handle_request, "0.0.0.0", port)
+        logger.info(f"Health-check HTTP server aktif pada port {port}")
+        async with server:
+            await server.serve_forever()
+    except Exception as e:
+        logger.warning(f"Tidak dapat memulakan health-check server: {e}")
+
+
 async def post_init(application: Application) -> None:
     """Dijalankan selepas aplikasi dibina untuk memulakan pangkalan data."""
     logger.info("Memulakan struktur pangkalan data SQLite...")
     await init_db()
     logger.info("Pangkalan data sedia untuk beroperasi.")
+
+    # Jika PORT disediakan oleh platform awan (contoh: Render), aktifkan health check
+    port_env = os.getenv("PORT")
+    if port_env:
+        try:
+            port = int(port_env)
+            asyncio.create_task(start_health_check_server(port))
+        except ValueError:
+            pass
 
 
 def main() -> None:
